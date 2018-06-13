@@ -65,6 +65,12 @@
                                     </form>
                                 </div>
                             </li>
+
+                            @if(Auth::check() && Auth::user()->type  == "admin")
+                                <li class="nav-item">
+                                    <a class="nav-link" href="{{ route('admin') }}">Admin Panel</a>
+                                </li>
+                            @endif
                         @endguest
                     </ul>
                 </div>

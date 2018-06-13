@@ -14,7 +14,7 @@ class UploadController extends Controller
  
 		{
 		 
-		return view('upload_form');
+		return view('admin');
 		 
 		}
  
@@ -35,6 +35,7 @@ class UploadController extends Controller
 			 
 			$allowedfileExtension=['pdf','jpg','png','docx']; 
 			$files = $request->file('photos');
+			$film_title = $request->file('name');
 			 
 			foreach($files as $file){
 			 
@@ -55,6 +56,7 @@ class UploadController extends Controller
 							ItemDetails::create([
 				 
 								'item_id' => $items->id,
+								'film_title' => $film_title,
 								'filename' => $filename
 								 
 								]);

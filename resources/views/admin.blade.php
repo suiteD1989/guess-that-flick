@@ -20,8 +20,8 @@
                         {{ csrf_field() }}
                          
                         <div class="form-group"> 
-                            <label for="Product Name">Film Name</label>
-                            <input type="text" name="name" class="form-control"  placeholder="Product Name" >  
+                            <label for="Product Name">Film Title</label>
+                            <input type="text" name="name" class="form-control"  placeholder="Film Title" >  
                         </div>
                          
                         <label for="Product Name">Image</label>

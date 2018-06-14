@@ -14,7 +14,7 @@ class UploadController extends Controller
  
 		{
 		 
-		return view('admin');
+			return view('admin');
 		 
 		}
  
@@ -35,12 +35,13 @@ class UploadController extends Controller
 			 
 			$allowedfileExtension=['pdf','jpg','png','docx']; 
 			$files = $request->file('photos');
-			$film_title = $request->file('name');
+			$film_title = $request->input('name');
 			 
 			foreach($files as $file){
 			 
 				$filename = $file->getClientOriginalName(); 
 				$extension = $file->getClientOriginalExtension(); 
+
 				$check=in_array($extension,$allowedfileExtension);
 			 
 				if($check)

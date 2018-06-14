@@ -19,6 +19,7 @@ class CreateItemDetailsTable extends Migration
             $table->foreign('item_id')->references('id')->on('items');
             $table->string('film_title');
             $table->string('filename');
+            $table->boolean('solved')->default(0);
             $table->timestamps();
         });
     }

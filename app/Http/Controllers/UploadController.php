@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Item;
 use App\ItemDetails;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+
  
 class UploadController extends Controller
  
@@ -76,5 +78,13 @@ class UploadController extends Controller
 			 
 				} 
 			}
+		}
+
+		public function showImage() 
+
+		{
+			$image = Storage::url('test.jpg');
+
+			return view('image')->with(array('image'=>$image));
 		}
 	}

@@ -26,3 +26,5 @@ Route::get('/admin', 'AdminController@admin')
 Route::get('/upload', 'UploadController@uploadForm');
  
 Route::post('/upload', 'UploadController@uploadSubmit');
+
+Route::get('/view-image', 'UploadController@showImage');

@@ -13,10 +13,22 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    
-                    <span>{{ $query }}</span>
+                   
 
-                    <img class="img-fluid" src="{{ $image }}">
+                    @foreach ($query as $q)
+                    
+                        <?php 
+                            $filename = $q->filename; 
+                            $film_title = $q->film_title;
+
+                            $test_image = Storage::url($filename);
+                        ?>
+                        
+                        <span>{{ $film_title }}</span>
+                        <img class="img-fluid" src="{{ $test_image }}"> 
+                    
+                    @endforeach
+
                 </div>
             </div>
         </div>

@@ -85,14 +85,26 @@ class ImageController extends Controller
 		public function fetchImage() 
 
 		{	
-		 	$film_image = DB::table('item_details')->where('solved', false)->get();
+		 	$film_image = DB::table('item_details')
+		 		->where('solved', false)
+		 		->get();
 
-			$image = Storage::url('public/test.png');
+	 		if ($film_image)
+	 		{
 
-			return view('image', [
-				'image' => $image,
-				'query' => $film_image
-			]);
+	 			return view('image', [
+
+					'query' => $film_image
+		
+				]);
+
+	 		}
+	 		else 
+	 		{
+
+	 			return view('image');
+
+	 		}
 
 		}
 	}

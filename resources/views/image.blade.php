@@ -13,8 +13,10 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                    <span>{{ $image }}</span>
-                    <img src="{{ $image }}">
+                    
+                    <span>{{ $query }}</span>
+
+                    <img class="img-fluid" src="{{ $image }}">
                 </div>
             </div>
         </div>

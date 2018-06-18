@@ -6,9 +6,11 @@ use App\Item;
 use App\ItemDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use File;
+use Illuminate\Support\Facades\DB;
 
  
-class UploadController extends Controller
+class ImageController extends Controller
  
 	{
  
@@ -54,7 +56,7 @@ class UploadController extends Controller
 				 
 						foreach ($request->photos as $photo) {
 				 
-							$filename = $photo->store('photos');
+							$filename = $photo->store('public');
 				 
 							ItemDetails::create([
 				 
@@ -80,11 +82,17 @@ class UploadController extends Controller
 			}
 		}
 
-		public function showImage() 
+		public function fetchImage() 
 
-		{
-			$image = Storage::url('test.jpg');
+		{	
+		 	$film_image = DB::table('item_details')->where('solved', false)->get();
 
-			return view('image')->with(array('image'=>$image));
+			$image = Storage::url('public/test.png');
+
+			return view('image', [
+				'image' => $image,
+				'query' => $film_image
+			]);
+
 		}
 	}

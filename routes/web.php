@@ -23,8 +23,8 @@ Route::get('/admin', 'AdminController@admin')
     ->middleware('is_admin')    
     ->name('admin');
 
-Route::get('/upload', 'UploadController@uploadForm');
+Route::get('/upload', 'ImageController@uploadForm');
  
-Route::post('/upload', 'UploadController@uploadSubmit');
+Route::post('/upload', 'ImageController@uploadSubmit');
 
-Route::get('/view-image', 'UploadController@showImage');
+Route::get('/view-image', 'ImageController@fetchImage');

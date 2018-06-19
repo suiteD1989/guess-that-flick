@@ -37,7 +37,7 @@ class ImageController extends Controller
 			 
 			{
 			 
-			$allowedfileExtension=['pdf','jpg','png','docx']; 
+			$allowedfileExtension=['pdf','jpg','png','jpeg']; 
 			$files = $request->file('photos');
 			$film_title = $request->input('name');
 			 
@@ -72,11 +72,11 @@ class ImageController extends Controller
 				 
 				}
 			 
-			else
+				else
 			 
-				{
-					return view('upload-failed');	 
-				}
+					{
+						return view('upload-failed');	 
+					}
 			 
 				} 
 			}
@@ -106,5 +106,11 @@ class ImageController extends Controller
 
 	 		}
 
+		}
+
+		public function markSolved()
+
+		{
+			
 		}
 	}

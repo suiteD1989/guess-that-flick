@@ -28,3 +28,5 @@ Route::get('/upload', 'ImageController@uploadForm');
 Route::post('/upload', 'ImageController@uploadSubmit');
 
 Route::get('/view-image', 'ImageController@fetchImage');
+
+Route::post('/solved', 'ImageController@markSolved');

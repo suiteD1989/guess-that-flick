@@ -5,8 +5,9 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Guess That Flick!</div>
 
+                @if(Auth::check())
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -20,16 +21,17 @@
                         <?php 
                             $filename = $q->filename; 
                             $film_title = $q->film_title;
-
-                            $test_image = Storage::url($filename);
+                            $image_path = Storage::url($filename);
                         ?>
                         
                         <span>{{ $film_title }}</span>
-                        <img class="img-fluid" src="{{ $test_image }}"> 
+                        
+                        <img class="img-fluid" src="{{ $image_path }}"> 
                     
                     @endforeach
 
                 </div>
+                @endif
             </div>
         </div>
     </div>

@@ -52,7 +52,7 @@ class ImageController extends Controller
 			 
 				{
 				 
-					$items= Item::create($request->all());
+					$items = Item::create($request->all());
 				 
 						foreach ($request->photos as $photo) {
 				 
@@ -108,9 +108,35 @@ class ImageController extends Controller
 
 		}
 
-		public function markSolved()
+		public function markSolved(Request $request)
 
-		{
-			
+		{	
+
+			$this->validate($request, [
+			 
+				'id' => 'required'
+
+			]);
+
+			$id = $request->id;
+
+			if ($id) 
+			{
+
+				$item_update = DB::table('item_details')
+		 		->where('item_id', $id)
+		 		->update(['solved' => 1]);
+		 		
+
+				echo "Record with ID:".$id." marked as solved";
+
+			}
+			else 
+			{
+
+				echo "Missing ID. Cannot update record without ID.";
+				
+			}
+	
 		}
 	}

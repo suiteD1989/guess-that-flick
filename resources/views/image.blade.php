@@ -21,12 +21,23 @@
                         <?php 
                             $filename = $q->filename; 
                             $film_title = $q->film_title;
+                            $id = $q->item_id;
                             $image_path = Storage::url($filename);
                         ?>
                         
                         <span>{{ $film_title }}</span>
                         
                         <img class="img-fluid" src="{{ $image_path }}"> 
+
+                        @if(Auth::check() && Auth::user()->type  == "admin")
+
+                            <form action="/solved" method="post">
+                                {{ csrf_field() }}
+                                <input type="hidden" name="id" value="{{ $id }}"/>
+                                <button type="submit">Solved</button>
+                            </form>
+
+                        @endif
                     
                     @endforeach
 

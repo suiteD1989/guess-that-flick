@@ -3,10 +3,8 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Guess That Flick!</div>
-
                 @if(Auth::check())
                 <div class="card-body">
                     @if (session('status'))
@@ -14,10 +12,8 @@
                             {{ session('status') }}
                         </div>
                     @endif
-                   
-
+                     
                     @foreach ($query as $q)
-                    
                         <?php 
                             $filename = $q->filename; 
                             $film_title = $q->film_title;
@@ -25,20 +21,15 @@
                             $image_path = Storage::url($filename);
                         ?>
                         
-                        <span>{{ $film_title }}</span>
-                        
                         <img class="img-fluid" src="{{ $image_path }}"> 
-
-                        @if(Auth::check() && Auth::user()->type  == "admin")
-
-                            <form action="/solved" method="post">
-                                {{ csrf_field() }}
-                                <input type="hidden" name="id" value="{{ $id }}"/>
-                                <button type="submit">Solved</button>
-                            </form>
-
-                        @endif
-                    
+                        <form action="/guess" method="post" enctype="multipart/form-data">
+                            {{ csrf_field() }}
+                            <div class="form-group"> 
+                                <label for="Film Title">Guess the flick!</label>
+                                <input type="text" name="film_title" class="form-control"  placeholder="Name of Flick?">  
+                            </div>
+                            <input type="submit" class="btn btn-primary" value="Upload" />    
+                        </form>
                     @endforeach
 
                 </div>

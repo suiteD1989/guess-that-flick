@@ -150,24 +150,37 @@ class ImageController extends Controller
 			$user_id = Auth::id();
 			$user_name = Auth::user()->name;
 
+			$guess_exist = DB::table('user_results')
+		 		->where('user_id', '=', $user_id)
+		 		->Where('film_title', '=', $user_guess)
+		 		->get();
+
 			$film_details = DB::table('item_details')
 		 		->where('film_title', 'LIKE', '%'.$user_guess.'%')
 		 		->get();
 
-	 		if($film_details->isEmpty())
+		 		
+	 		if($guess_exist->isEmpty())
 	 		{
-	 			return 'uncool';
+	 			if($film_details->isEmpty())
+		 		{
+		 			return 'uncool';
+		 		}
+		 		else
+		 		{
+		 			DB::table('user_results')->insert([
+		 				'user_id' => $user_id,
+		 				'user_name' => $user_name,
+		 				'film_title' => $user_guess,
+		 				'score' => 1
+		 			]);
+
+		 			return 'Query posted!';
+		 		}
 	 		}
 	 		else
 	 		{
-	 			DB::table('user_results')->insert([
-	 				'user_id' => $user_id,
-	 				'user_name' => $user_name,
-	 				'film_title' => $user_guess,
-	 				'score' => 1
-	 			]);
-
-	 			return 'query posted';
+	 			return "you've already submited your answer!";
 	 		}
 		}
 	}

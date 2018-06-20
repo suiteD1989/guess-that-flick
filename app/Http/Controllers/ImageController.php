@@ -161,10 +161,10 @@ class ImageController extends Controller
 	 		else
 	 		{
 	 			DB::table('user_results')->insert([
-	 				['user_id' => $user_id],
-	 				['user_name' => $user_name],
-	 				['film_title' => $user_guess],
-	 				['score' => 1]
+	 				'user_id' => $user_id,
+	 				'user_name' => $user_name,
+	 				'film_title' => $user_guess,
+	 				'score' => 1
 	 			]);
 
 	 			return 'query posted';

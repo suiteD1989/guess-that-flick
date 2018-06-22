@@ -8,7 +8,7 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('app.name', 'Laravel') }}</title>
+    <title>Guess That Flick</title>
 
     <!-- Scripts -->
     <script src="{{ asset('js/app.js') }}" defer></script>
@@ -25,7 +25,7 @@
         <nav class="navbar navbar-expand-md navbar-light navbar-laravel">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
-                    {{ config('app.name', 'Laravel') }}
+                    Guess That Flick
                 </a>
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
@@ -54,6 +54,11 @@
                                 </a>
 
                                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+
+                                    @if(Auth::check() && Auth::user()->type  == "admin")
+                                        <a class="dropdown-item" href="{{ route('admin') }}">Admin Panel</a>
+                                    @endif
+
                                     <a class="dropdown-item" href="{{ route('logout') }}"
                                        onclick="event.preventDefault();
                                                      document.getElementById('logout-form').submit();">
@@ -65,12 +70,6 @@
                                     </form>
                                 </div>
                             </li>
-
-                            @if(Auth::check() && Auth::user()->type  == "admin")
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('admin') }}">Admin Panel</a>
-                                </li>
-                            @endif
                         @endguest
                     </ul>
                 </div>

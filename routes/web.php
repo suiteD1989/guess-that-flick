@@ -11,21 +11,16 @@
 |
 */
 
-// Route::get('/', function () {
-//     return view('welcome');
-// });
-
 Auth::routes();
 
 // Admin Related Routes
-
-Route::get('/home', 'HomeController@index')->name('home');
 
 Route::get('/admin', 'AdminController@admin')    
     ->middleware('is_admin')    
     ->name('admin');
 
-Route::get('/admin-image', 'ImageController@fetchImage');
+Route::get('/edit-image', 'ImageController@fetchImage')
+	->name('edit-image');
 
 Route::get('/upload', 'ImageController@uploadForm');
  
@@ -38,3 +33,6 @@ Route::post('/solved', 'ImageController@markSolved');
 Route::get('/', 'ImageController@displayImageMain');
 
 Route::post('/guess', 'ImageController@guessFlick');
+
+Route::get('/results', 'ResultsController@getResults')
+	->name('results');

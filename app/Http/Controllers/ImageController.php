@@ -32,46 +32,57 @@ class ImageController extends Controller
 				'photos'=>'required',
 
 			]);
-			 
-			if ($request->hasFile('photos'))
-			{
-			 
-				$allowedfileExtension=['pdf','jpg','png','jpeg']; 
-				$files = $request->file('photos');
-				$film_title = $request->input('name');
-				 
-				foreach($files as $file)
-				{
-				 
-					$filename = $file->getClientOriginalName(); 
-					$extension = $file->getClientOriginalExtension(); 
-					$check=in_array($extension,$allowedfileExtension);
-				 
-					if($check)
-					{
-						$items = Item::create($request->all());
-					 
-							foreach ($request->photos as $photo) {
+		 	
+			$check_title_exists = DB::table('item_details')
+		 		->where('film_title', '=', $request->name)
+		 		->get();
 
-								$filename = $photo->store('public');
-					 
-								ItemDetails::create([
-					 
-									'item_id' => $items->id,
-									'film_title' => $film_title,
-									'filename' => $filename
-									 
-									]);
-					 
-							}
-						return view('uploaded');
-					}
-					else
+			if ($request->hasFile('photos'))
+				if($check_title_exists->isEmpty()) 
+				{
 					{
-						return view('upload-failed');	 
+				 
+					$allowedfileExtension=['pdf','jpg','png','jpeg']; 
+					$files = $request->file('photos');
+					$film_title = $request->input('name');
+					 
+						foreach($files as $file)
+						{
+						 
+							$filename = $file->getClientOriginalName(); 
+							$extension = $file->getClientOriginalExtension(); 
+							$check=in_array($extension,$allowedfileExtension);
+						 
+							if($check)
+							{
+								$items = Item::create($request->all());
+							 
+									foreach ($request->photos as $photo) {
+
+										$filename = $photo->store('public');
+							 
+										ItemDetails::create([
+							 
+											'item_id' => $items->id,
+											'film_title' => $film_title,
+											'filename' => $filename
+											 
+											]);
+							 
+									}
+								return view('uploaded');
+							}
+							else
+							{
+								return view('upload-failed');	 
+							}
+						} 
 					}
-				} 
-			}
+				}
+				else
+				{
+					return 'That film has already been entered';
+				}
 		}
 
 		public function fetchImage() 
@@ -90,7 +101,7 @@ class ImageController extends Controller
 	 		}
 	 		else 
 	 		{
-	 			return view('admin-image');
+	 			return view('edit-image');
 	 		}
 		}
 
@@ -134,7 +145,7 @@ class ImageController extends Controller
 	 		}
 	 		else 
 	 		{
-	 			return view('main-image');
+	 			return view('/');
 	 		}
 		}
 

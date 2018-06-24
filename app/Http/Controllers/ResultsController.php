@@ -13,16 +13,32 @@ class ResultsController extends Controller
     {
     	$results = DB::table('user_results')
 		 		->get();
+ 	
+ 		foreach ($results as $user) 
+ 		{
+
+			$username[] = $user->user_name;
+			$stip_duplicates = array_unique($username);
+		}
+
+		foreach ($stip_duplicates as $user) 
+		{	
+
+			$user_total[] = DB::table('user_results')
+				->where('user_name', $user)
+				->sum('score');
+
+		}	
 
  		if($results->isEmpty())
 		{
-			return view('results');
+			return view('test');
 		}
 		else
 		{
-			return view('results', [
+			return view('test', [
 
-					'results' => $results
+					'results' => $user_total
 		
 				]);
 		}

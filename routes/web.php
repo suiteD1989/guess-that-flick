@@ -36,3 +36,8 @@ Route::post('/guess', 'ImageController@guessFlick');
 
 Route::get('/results', 'ResultsController@getResults')
 	->name('results');
+
+// Testing Page
+
+Route::get('/test', 'ResultsController@getResults')
+	->name('test');	

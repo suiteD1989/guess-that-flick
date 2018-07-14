@@ -15,24 +15,21 @@
                         <table class="table">
                             <thead>
                                 <tr>
-                                    <th scope="col">Score</th>
                                     <th scope="col">Name</th>
-                                    <th scope="col">Flick Title</th>
+                                    <th scope="col">Score</th>
                                 </tr>
                             </thead>
                             <tbody>
 
                         @foreach ($results as $r)
                             <?php 
-                               $username = $r->user_name;
-                               $film_title = $r->film_title;
+                               $name = $r->name;
                                $score = $r->score;
                             ?>
 
                             <tr>
+                                <td>{{$name}}</td>
                                 <td>{{$score}}</td>
-                                <td>{{$username}}</td>
-                                <td>{{$film_title}}</td>
                             </tr>
                             
                         @endforeach

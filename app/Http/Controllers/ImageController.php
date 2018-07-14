@@ -19,7 +19,7 @@ class ImageController extends Controller
  
 		{
 		 
-			return view('admin');
+			return view('home');
 		 
 		}
  
@@ -81,7 +81,9 @@ class ImageController extends Controller
 				}
 				else
 				{
-					return 'That film has already been entered';
+					return view('feedback', [
+						'message' => 'That film has already been entered!'
+					]);
 				}
 		}
 
@@ -93,7 +95,7 @@ class ImageController extends Controller
 
 	 		if ($film_image)
 	 		{
-	 			return view('admin-image', [
+	 			return view('film-config', [
 
 					'query' => $film_image
 		
@@ -168,14 +170,18 @@ class ImageController extends Controller
 
 			$film_details = DB::table('item_details')
 		 		->where('film_title', 'LIKE', '%'.$user_guess.'%')
+		 		->where('solved', false)
 		 		->get();
 
-		 		
 	 		if($guess_exist->isEmpty())
 	 		{
 	 			if($film_details->isEmpty())
 		 		{
-		 			return 'uncool';
+		 			return view('feedback', [
+
+						'message' => 'Nope, guess again!',
+
+					]);
 		 		}
 		 		else
 		 		{
@@ -186,12 +192,20 @@ class ImageController extends Controller
 		 				'score' => 1
 		 			]);
 
-		 			return 'Query posted!';
+		 			return view('feedback', [
+
+						'message' => 'Nice one, well done!',
+
+					]);
 		 		}
 	 		}
 	 		else
 	 		{
-	 			return "you've already submited your answer!";
+	 			return view('feedback', [
+
+						'message' => 'You already had a go at that one!',
+
+					]);
 	 		}
 		}
 	}

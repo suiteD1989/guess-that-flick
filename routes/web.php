@@ -15,12 +15,9 @@ Auth::routes();
 
 // Admin Related Routes
 
-Route::get('/admin', 'AdminController@admin')    
-    ->middleware('is_admin')    
-    ->name('admin');
-
-Route::get('/edit-image', 'ImageController@fetchImage')
-	->name('edit-image');
+Route::get('/admin', 'ImageController@fetchImage')
+	->middleware('is_admin')
+	->name('admin');
 
 Route::get('/upload', 'ImageController@uploadForm');
  

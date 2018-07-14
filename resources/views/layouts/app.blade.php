@@ -59,7 +59,6 @@
 
                                     @if(Auth::check() && Auth::user()->type  == "admin")
                                         <a class="dropdown-item" href="{{ route('admin') }}">Admin Panel</a>
-                                        <a class="dropdown-item" href="{{ route('edit-image') }}">Edit Image</a>
                                     @endif
 
                                     <a class="dropdown-item" href="{{ route('logout') }}"

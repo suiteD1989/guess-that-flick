@@ -7,6 +7,7 @@ use App\ItemDetails;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+
 class ResultsController extends Controller
 {
     public function getResults()
@@ -24,9 +25,15 @@ class ResultsController extends Controller
 		foreach ($stip_duplicates as $user) 
 		{	
 
-			$user_total[] = DB::table('user_results')
+			$user_total = DB::table('user_results')
 				->where('user_name', $user)
 				->sum('score');
+
+			$user_score_object = new \stdClass();
+			$user_score_object->name = $user;
+			$user_score_object->score = $user_total;
+
+			$score_array[] = $user_score_object;
 
 		}	
 
@@ -36,9 +43,9 @@ class ResultsController extends Controller
 		}
 		else
 		{
-			return view('test', [
+			return view('results', [
 
-					'results' => $user_total
+					'results' => $score_array
 		
 				]);
 		}

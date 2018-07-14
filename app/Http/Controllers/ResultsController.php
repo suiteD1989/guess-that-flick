@@ -14,32 +14,38 @@ class ResultsController extends Controller
     {
     	$results = DB::table('user_results')
 		 		->get();
- 	
+ 		$strip_duplicates = '';
+
  		foreach ($results as $user) 
  		{
 
 			$username[] = $user->user_name;
-			$stip_duplicates = array_unique($username);
+			$strip_duplicates = array_unique($username);
 		}
 
-		foreach ($stip_duplicates as $user) 
-		{	
+		if(!empty($strip_duplicates))
+		{
+			foreach ($strip_duplicates as $user) 
+			{	
 
-			$user_total = DB::table('user_results')
-				->where('user_name', $user)
-				->sum('score');
+				$user_total = DB::table('user_results')
+					->where('user_name', $user)
+					->sum('score');
 
-			$user_score_object = new \stdClass();
-			$user_score_object->name = $user;
-			$user_score_object->score = $user_total;
+				$user_score_object = new \stdClass();
+				$user_score_object->name = $user;
+				$user_score_object->score = $user_total;
 
-			$score_array[] = $user_score_object;
+				$score_array[] = $user_score_object;
 
+			}
 		}	
 
  		if($results->isEmpty())
 		{
-			return view('test');
+			return view('feedback', [
+				'message' => "There's fuckery going on in the ResultsController.",
+			]);
 		}
 		else
 		{

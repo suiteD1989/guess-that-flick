@@ -10417,3 +10417,26 @@ a.text-dark:focus {
           box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
 }
 
+.feedback {
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+}
+
+.success {
+  background-color: green;
+}
+
+.error {
+  background-color: red;
+}
+
+.open-films h1 {
+  text-transform: uppercase;
+}
+
+.open-films .film-title {
+  text-transform: capitalize;
+  font-size: 1.5em;
+}
+

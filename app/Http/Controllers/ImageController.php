@@ -59,7 +59,7 @@ class ImageController extends Controller
 							 
 									foreach ($request->photos as $photo) {
 
-										$filename = $photo->store('public');
+										$filename = $photo->storeAs('public', $film_title);
 							 
 										ItemDetails::create([
 							 
@@ -70,11 +70,17 @@ class ImageController extends Controller
 											]);
 							 
 									}
-								return view('uploaded');
+								return view('feedback', [
+									'message' => 'Upload finished, let the games begin!',
+									'status' => 'success',
+								]);
 							}
 							else
 							{
-								return view('upload-failed');	 
+								return view('feedback', [
+									'message' => 'Upload failed.',
+									'status' => 'error',
+								]);	 
 							}
 						} 
 					}
@@ -82,7 +88,8 @@ class ImageController extends Controller
 				else
 				{
 					return view('feedback', [
-						'message' => 'That film has already been entered!'
+						'message' => 'That film has already been entered!',
+						'status' => 'error',
 					]);
 				}
 		}
@@ -111,23 +118,37 @@ class ImageController extends Controller
 		{	
 			$this->validate($request, [
 			 
-				'id' => 'required'
+				'id' => 'required',
+				'title' => 'required'
 
 			]);
 
 			$id = $request->id;
+			$film_title = $request->title;
 
 			if ($id) 
 			{
 				$item_update = DB::table('item_details')
 		 		->where('item_id', $id)
 		 		->update(['solved' => 1]);
-		 	
-				echo "Record with ID:".$id." marked as solved";
+		 		
+		 		Storage::delete('public/'.$film_title);
+
+				return view('feedback', [
+
+						'message' => 'This film has been solved.',
+						'status' => 'success',
+
+					]);
 			}
 			else 
 			{
-				echo "Missing ID. Cannot update record without ID.";	
+				return view('feedback', [
+
+						'message' => 'Missing ID.',
+						'status' => 'error',
+
+					]);
 			}
 		}
 
@@ -180,6 +201,7 @@ class ImageController extends Controller
 		 			return view('feedback', [
 
 						'message' => 'Nope, guess again!',
+						'status' => 'error',
 
 					]);
 		 		}
@@ -195,6 +217,7 @@ class ImageController extends Controller
 		 			return view('feedback', [
 
 						'message' => 'Nice one, well done!',
+						'status' => 'success',
 
 					]);
 		 		}
@@ -204,6 +227,7 @@ class ImageController extends Controller
 	 			return view('feedback', [
 
 						'message' => 'You already had a go at that one!',
+						'status' => 'error',
 
 					]);
 	 		}

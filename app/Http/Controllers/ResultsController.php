@@ -45,6 +45,7 @@ class ResultsController extends Controller
 		{
 			return view('feedback', [
 				'message' => "There's fuckery going on in the ResultsController.",
+				'status' => 'error',
 			]);
 		}
 		else
